@@ -64,7 +64,7 @@ docs = "mkdocs build"
 serve-docs = "mkdocs serve"
 
 
-app = "flask --app sigma.dashboard.app run --reload"
+app = "flask --app sigma.app run --reload"
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.10", "3.11"]
