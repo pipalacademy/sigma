@@ -1,0 +1,5 @@
+site_name: Sigma
+site_description: Sigma is a collection of tools to streamline the trainings for Pipal Academy.
+
+theme:
+  name: material

@@ -42,6 +42,7 @@ path = "src/sigma/__about__.py"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
+  "mkdocs-material"
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
@@ -54,6 +55,8 @@ cov = [
   "test-cov",
   "cov-report",
 ]
+
+docs = "mkdocs build"
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.10", "3.11"]
