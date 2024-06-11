@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "python-sigma"
+name = "sigma"
 dynamic = ["version"]
 description = 'Sigma is a collection of tools to streamline the trainings for Pipal Academy.'
 readme = "README.md"
@@ -24,7 +24,8 @@ classifiers = [
 dependencies = [
   "click",
   "pyyaml",
-  "nbformat"
+  "nbformat",
+  "Flask"
 ]
 
 [project.urls]
@@ -33,7 +34,10 @@ Issues = "https://github.com/pipalacademy/sigma/issues"
 Source = "https://github.com/pipalacademy/sigma"
 
 [project.scripts]
-sigma = "sigma.cli:sigma"
+#sigma = "sigma.cli:sigma"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sigma"]
 
 [tool.hatch.version]
 path = "src/sigma/__about__.py"
@@ -57,6 +61,8 @@ cov = [
 ]
 
 docs = "mkdocs build"
+
+app = "flask --app sigma.dashboard.app run --reload"
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.10", "3.11"]

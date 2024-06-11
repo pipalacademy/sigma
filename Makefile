@@ -14,3 +14,6 @@ docs:
 
 shell:
 	hatch shell
+
+run:
+	hatch run app
