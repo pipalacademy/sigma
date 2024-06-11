@@ -61,6 +61,8 @@ cov = [
 ]
 
 docs = "mkdocs build"
+serve-docs = "mkdocs serve"
+
 
 app = "flask --app sigma.dashboard.app run --reload"
 

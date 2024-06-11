@@ -12,6 +12,9 @@ test:
 docs:
 	hatch run docs
 
+serve-docs:
+	hatch run serve-docs
+
 shell:
 	hatch shell
 
