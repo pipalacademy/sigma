@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="main">
+    <h1>{{collection.name}}</h1>
+
+    <div class="notebooks">
+        {% for nb in collection.notebooks %}
+            <div class="notebook-wrapper">
+                <h2 class="notebook-title">{{nb.owner}}</h2>
+                <div class="notebook" id="notebook-{{nb.owner}}"></div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script type="text/javascript">
+    {% for nb in collection.notebooks %}
+        renderNotebook("#notebook-{{nb.owner}}", "/preview/_tail/{{nb.owner}}/{{nb.name}}.ipynb");
+    {% endfor %}
+</script>
+
+{% endblock %}

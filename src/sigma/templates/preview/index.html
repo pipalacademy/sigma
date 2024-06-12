@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="main">
+    <h1>Notebook Preview</h1>
+
+    <div>Please select the notebook to preview.</div>
+
+    <div class="sidebar">
+        {% for c in collections %}
+            <div class="notebook-link"><a href="/preview/{{c.name}}">{{c.name}}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}

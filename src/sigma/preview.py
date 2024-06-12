@@ -48,6 +48,8 @@ from __future__ import annotations
 import itertools
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Optional
+import json
 
 from . import config
 
@@ -56,14 +58,17 @@ notebook_pattern = "/home/jupyter-*/*.ipynb"
 
 class PreviewManager:
     def __init__(self, home_path=None):
-        self.home_path = Path(home_path or config.preview_home_path)
+        self.home_path = Path(home_path or config.home_path)
+
+        print("PreviewManager", self.home_path)
+
         self._collections: dict[str, Collection] = self._scan()
 
     def get_collections(self) -> list[Collection]:
         return self._collections.values()
 
-    def get_collection(self, name: str) -> Collection:
-        return self._collections[name]
+    def get_collection(self, name: str) -> Optional[Collection]:
+        return self._collections.get(name)
 
     def _scan(self) -> dict[str, Collection]:
         """Scans the paths to update the collections."""
@@ -86,6 +91,12 @@ class Collection:
     def size(self):
         return len(self.notebooks)
 
+    def get_notebook(self, owner):
+        # TODO: improve this
+        for nb in self.notebooks:
+            if nb.owner == owner:
+                return nb
+
     @staticmethod
     def from_paths(name, paths: list[Path]) -> Collection:
         print("from_paths", name, paths)
@@ -98,6 +109,11 @@ class Notebook:
     owner: str
     filename: str
     path: Path
+
+    def tail(self, n=10):
+        ipynb = json.load(self.path.open())
+        cells = ipynb["cells"][-n:]
+        return dict(ipynb, cells=cells)
 
     @staticmethod
     def from_path(path: Path) -> Notebook:
