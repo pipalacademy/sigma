@@ -14,6 +14,7 @@ def index():
 
 @app.route("/preview")
 def preview_index():
+    preview_manager.scan()
     collections = preview_manager.get_collections()
     print("collections", collections)
     return render_template("preview/index.html", collections=collections)

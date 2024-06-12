@@ -59,16 +59,11 @@ notebook_pattern = "/home/jupyter-*/*.ipynb"
 class PreviewManager:
     def __init__(self, home_path=None):
         self.home_path = Path(home_path or config.home_path)
+        self._collections: dict[str, Collection] = {}
+        self.scan()
 
-        print("PreviewManager", self.home_path)
-
-        self._collections: dict[str, Collection] = self._scan()
-
-    def get_collections(self) -> list[Collection]:
-        return self._collections.values()
-
-    def get_collection(self, name: str) -> Optional[Collection]:
-        return self._collections.get(name)
+    def scan(self):
+        self._collections = self._scan()
 
     def _scan(self) -> dict[str, Collection]:
         """Scans the paths to update the collections."""
@@ -81,6 +76,12 @@ class PreviewManager:
         ]
         return {c.name: c for c in collections}
 
+
+    def get_collections(self) -> list[Collection]:
+        return self._collections.values()
+
+    def get_collection(self, name: str) -> Optional[Collection]:
+        return self._collections.get(name)
 
 @dataclass
 class Collection:
