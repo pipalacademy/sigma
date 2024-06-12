@@ -1,0 +1,10 @@
+[http.services.dashboard]
+[http.services.dashboard.loadBalancer]
+passHostHeader = true
+[[http.services.dashboard.loadBalancer.servers]]
+url = "http://127.0.0.1:6677"
+
+[http.routers.dashboard]
+service = "dashboard"
+rule = "HostRegexp(`^dashboard\..*`)"
+entryPoints = [ "https",]
