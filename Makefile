@@ -1,5 +1,5 @@
 
-.PHONY: default lint
+.PHONY: default lint venv
 
 default: lint
 
@@ -20,3 +20,7 @@ shell:
 
 run:
 	hatch run app
+
+venv:
+	python -m venv venv
+	./venv/bin/pip install -r requirements.txt
