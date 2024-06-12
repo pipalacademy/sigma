@@ -1,5 +1,0 @@
-click
-pyyaml
-nbformat
-Flask
-gunicorn

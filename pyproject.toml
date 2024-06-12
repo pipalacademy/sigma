@@ -25,7 +25,8 @@ dependencies = [
   "click",
   "pyyaml",
   "nbformat",
-  "Flask"
+  "Flask",
+  "gunicorn"
 ]
 
 [project.urls]
