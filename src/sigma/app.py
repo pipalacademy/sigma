@@ -9,8 +9,11 @@ preview_manager = preview.PreviewManager()
 
 @app.route("/")
 def index():
-    return "Hello, sigma!"
+    return render_template("index.html")
 
+@app.route("/users")
+def users():
+    return render_template("users.html")
 
 @app.route("/preview")
 def preview_index():
