@@ -4,9 +4,11 @@ Includes adding users to jupyter hub.
 """
 from __future__ import annotations
 from . import settings
+import crypt
 from pathlib import Path
 import requests
 from dataclasses import dataclass
+import subprocess
 
 class JupyterHub:
     """Interface to jupyterhub.
@@ -44,6 +46,10 @@ class JupyterHub:
         # Start the server. The user is added to the system only when the server is started for the first time.
         self._post(f"/users/{name}/server")
 
+        # update password
+        user = JupyterUser(self, name, admin=admin)
+        user.update_password()
+
     def get_users(self) -> list[JupyterUser]:
         """Returns all the users in the system.
         """
@@ -62,3 +68,16 @@ class JupyterUser:
         name = d['name']
         admin = d['admin']
         return JupyterUser(hub=hub, name=name, admin=admin)
+
+    def update_password(self):
+        """Updates the password of the user to standard password.
+        """
+        user_password = settings.get("user_password")
+        self.set_password(user_password)
+
+    def set_password(self, password):
+        username = "jupyter-" + self.name
+        enc_password = crypt.crypt(password)
+
+        cmd = ["usermod", "-p", enc_password, username]
+        subprocess.run(cmd, check=True)
