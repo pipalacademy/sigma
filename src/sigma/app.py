@@ -1,6 +1,8 @@
-from flask import Flask, render_template, abort, jsonify
+from flask import Flask, render_template, abort, jsonify, redirect, url_for, request
 
 from . import preview
+from .jupyterhub import JupyterHub
+from . import settings
 
 app = Flask(__name__)
 
@@ -11,9 +13,31 @@ preview_manager = preview.PreviewManager()
 def index():
     return render_template("index.html")
 
+@app.route("/settings")
+def settings_page():
+    _settings = settings.get_all_settings()
+    values = settings.get_all()
+    return render_template("settings.html", settings=_settings, values=values)
+
+@app.route("/settings", methods=["POST"])
+def settings_save():
+    settings.save(request.form)
+    return redirect(url_for("settings_page"))
+
 @app.route("/users")
 def users():
-    return render_template("users.html")
+    hub = JupyterHub()
+    users = hub.get_users()
+    return render_template("users.html", users=users)
+
+@app.route("/users", methods=["POST"])
+def users_add():
+    usernames = request.form['usernames'].strip().splitlines()
+    if usernames:
+        hub = JupyterHub()
+        hub.add_users(usernames)
+
+    return redirect(url_for("users"))
 
 @app.route("/preview")
 def preview_index():

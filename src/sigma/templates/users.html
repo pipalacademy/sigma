@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <div id="main">
-        <h1>Users</h1>
+<div id="main">
+    <h1>Users</h1>
 
-        <div>coming soon!</div>
-    </div>
+    <ul class="list-group">
+        {%for user in users %}
+            <li class="list-group-item">{{user.name}}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add New Users</h2>
+    <form class="form" method="POST">
+        <div class="form-group">
+            <label for="usernames">User Names (One per line)</label>
+            <textarea class="form-control" name="usernames" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Add Users</button>
+    </form>
 </div>
 {% endblock %}
