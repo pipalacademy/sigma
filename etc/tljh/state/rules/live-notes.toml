@@ -1,0 +1,10 @@
+[http.services.live-notes]
+[http.services.live-notes.loadBalancer]
+passHostHeader = true
+[[http.services.live-notes.loadBalancer.servers]]
+url = "http://127.0.0.1:4567"
+
+[http.routers.live-notes]
+service = "live-notes"
+rule = "Host(`live.lab.pipal.in`)"
+entryPoints = [ "https",]

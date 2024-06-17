@@ -1,0 +1,21 @@
+#
+# Systemd service to show live training notes
+#
+# Expects the quarto project to be setup at /opt/training.
+#
+#
+#
+[Unit]
+Description=Training Live Notes
+After=multi-user.target
+
+[Service]
+User=jupyter-pipal
+Group=jupyter-pipal
+Type=simple
+Restart=always
+WorkingDirectory=/opt/training
+ExecStart=quarto preview --port 4567
+
+[Install]
+WantedBy=multi-user.target

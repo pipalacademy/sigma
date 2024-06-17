@@ -6,5 +6,5 @@ url = "http://127.0.0.1:6677"
 
 [http.routers.dashboard]
 service = "dashboard"
-rule = "HostRegexp(`^dashboard\..*`)"
+rule = "Host(`dashboard.lab.pipal.in`)"
 entryPoints = [ "https",]
