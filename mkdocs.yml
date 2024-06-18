@@ -1,5 +1,7 @@
 site_name: Sigma
 site_description: Sigma is a collection of tools to streamline the trainings for Pipal Academy.
 
+repo_url: https://github.com/pipalacademy/sigma/
+
 theme:
   name: material
