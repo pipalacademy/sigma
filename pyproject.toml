@@ -28,7 +28,8 @@ dependencies = [
   "Flask",
   "gunicorn",
   "requests",
-  "ipykernel"
+  "ipykernel",
+  "markdown"
 ]
 
 [project.urls]

@@ -54,7 +54,7 @@ def _get_notebook_name():
         pass
 
 
-PROBLEM_ROOT = "/opt/training/problems"
+PROBLEM_ROOT = "/opt/problems"
 
 
 class Problem:
