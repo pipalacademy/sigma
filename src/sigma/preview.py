@@ -46,10 +46,10 @@ Notebook:
 from __future__ import annotations
 
 import itertools
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-import json
 
 from . import config
 
@@ -72,16 +72,17 @@ class PreviewManager:
         paths = sorted(paths, key=lambda p: p.stem)
 
         collections = [
-            Collection.from_paths(name, paths_chunk) for name, paths_chunk in itertools.groupby(paths, key=lambda p: p.stem)
+            Collection.from_paths(name, paths_chunk)
+            for name, paths_chunk in itertools.groupby(paths, key=lambda p: p.stem)
         ]
         return {c.name: c for c in collections}
-
 
     def get_collections(self) -> list[Collection]:
         return self._collections.values()
 
     def get_collection(self, name: str) -> Optional[Collection]:
         return self._collections.get(name)
+
 
 @dataclass
 class Collection:

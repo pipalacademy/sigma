@@ -1,5 +1,7 @@
-from sigma.preview import Notebook, Collection, PreviewManager
 from pathlib import Path
+
+from sigma.preview import Collection, Notebook, PreviewManager
+
 
 class TestNotebook:
     def test_from_path(self):
@@ -10,6 +12,7 @@ class TestNotebook:
         assert nb.owner == "alpha"
         assert nb.path == path
 
+
 class TestCollection:
     def test_from_paths(self):
         path1 = Path("/home/jupyter-alpha/session1.ipynb")
@@ -18,7 +21,8 @@ class TestCollection:
         c = Collection.from_paths("session1", [path1, path2])
         assert c.name == "session1"
         assert c.size == 2
-        assert [nb.owner for nb in c.notebooks] == ['alpha', 'beta']
+        assert [nb.owner for nb in c.notebooks] == ["alpha", "beta"]
+
 
 class TestPreviewManager:
     def test_scan(self, tmp_path):

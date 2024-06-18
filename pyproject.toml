@@ -27,7 +27,8 @@ dependencies = [
   "nbformat",
   "Flask",
   "gunicorn",
-  "requests"
+  "requests",
+  "ipykernel"
 ]
 
 [project.urls]
