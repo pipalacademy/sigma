@@ -131,6 +131,9 @@ class Problem:
         VERIFY_PROBLEM_GRADES.append(grade)
 
     def notify_status(self, status):
+        # XXX-Anand: FIXME later
+        return
+
         url = "https://engage.pipal.in/api/method/jupyter-problem-tracker"
         data = {
             "training": "zeomega-python",
