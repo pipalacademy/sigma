@@ -118,3 +118,29 @@ Pass `-f` to follow the logs to see the live output. For, example:
 ```
 $ sudo journalctl -u live-notes -n 50 -f
 ```
+
+## Troubleshooting
+
+### `%%load_problem` and `%%verify_problem` not working
+
+This can happen when the juputer startup script is not properly installed for a user.
+
+Sigma install startup script at `~/.ipython/profile_default/startup/startup.py`.
+You can check if that file is missing by running the following command. If the file is missing, it will give an error.
+
+```
+$ sudo ls -l /home/jupyter-<username>/.ipython/profile_default/startup/startup.py
+-rw-r--r-- 1 jupyter-xxx jupyter-xxx 42 Jun 18 18:39 /home/jupyter-xxx/.ipython/profile_default/startup/startup.py
+```
+
+If the file is missing, do the following to create it.
+
+```
+$ sudo su jupyter-<username>
+$ cd
+$ mkdir -p ~/.ipython/profile_default/startup
+$ cd  ~/.ipython/profile_default/startup
+$ echo 'from sigma import magic; magic.register()' > startup.py
+```
+
+Restart the kernel of the notebook to load the magic commands.
