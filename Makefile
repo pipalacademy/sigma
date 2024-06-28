@@ -1,5 +1,5 @@
 
-.PHONY: default lint venv
+.PHONY: default lint test docs serve=docs run venv
 
 default: lint
 

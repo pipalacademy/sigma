@@ -5,3 +5,11 @@ repo_url: https://github.com/pipalacademy/sigma/
 
 theme:
   name: material
+
+markdown_extensions:
+  - admonition
+
+nav:
+  - index.md
+  - lab-setup.md
+  - assignments.md
