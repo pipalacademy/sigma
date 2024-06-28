@@ -29,7 +29,9 @@ dependencies = [
   "gunicorn",
   "requests",
   "ipykernel",
-  "markdown"
+  "markdown",
+  "nbformat",
+  "jupyter_server"
 ]
 
 [project.urls]
@@ -38,7 +40,7 @@ Issues = "https://github.com/pipalacademy/sigma/issues"
 Source = "https://github.com/pipalacademy/sigma"
 
 [project.scripts]
-#sigma = "sigma.cli:sigma"
+sigma = "sigma.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/sigma"]

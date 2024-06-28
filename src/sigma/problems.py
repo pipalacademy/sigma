@@ -4,6 +4,8 @@ Jupyter Lab magic commands for trainings by Pipal Academy.
 
 """
 
+from __future__ import annotations
+
 import os
 import subprocess
 import sys
@@ -12,9 +14,11 @@ from pathlib import Path
 
 import ipykernel
 import markdown
+import nbformat
 import requests
 import yaml
 from jupyter_server import serverapp as app
+from . import config
 
 __version__ = "0.1.0"
 
@@ -54,7 +58,7 @@ def _get_notebook_name():
         pass
 
 
-PROBLEM_ROOT = "/opt/problems"
+PROBLEM_ROOT = config.problem_root
 
 
 class Problem:
