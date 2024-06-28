@@ -10,7 +10,7 @@ Each assignment is specified in an YAML file.
 title: Assignment 01
 description: |
     Please solve all the following problems.
-    You have 2 days to solve all the assignments.
+    You have 2 days to solve all the problems and submit the assignment.
 problems:
     - mean
     - product
