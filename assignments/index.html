@@ -458,9 +458,9 @@ Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-su
 Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
 </code></pre>
 <p>By default, sigma assumes that the assignment solutions are in the home directory. Sometimes, the assignments are kept in <code>assignments/</code> directory. In such a case, pass <code>--assignment-dir</code> option to tell sigma to take that into account.</p>
-<pre><code>$ sigma collect-assignment assignment-01 --assignment-dir
-Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
-Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
+<pre><code>$ sigma collect-assignment assignment-01 --assignment-dir assignments
+Submitted /home/jupyter-alice/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
+Submitted /home/jupyter-bob/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
 </code></pre>
 
 
