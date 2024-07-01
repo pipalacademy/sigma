@@ -318,6 +318,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#collecting-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collecting Assignments
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -365,6 +374,15 @@
   <a href="#creating-assignments" class="md-nav__link">
     <span class="md-ellipsis">
       Creating assignments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collecting-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collecting Assignments
     </span>
   </a>
   
@@ -431,6 +449,19 @@ $ sigma create-assignment assignment-01.yml
 created assignment-01.iynb
 </code></pre>
 </div>
+<h2 id="collecting-assignments">Collecting Assignments</h2>
+<p>After the deadline for an assignment, the instructor need to collect the assignment manually or through a cron job. There is no way for the students to submit their own assignments.</p>
+<p>The assignment solutions will be maintaining in the directory <code>training-data/assignment-submissions</code>.</p>
+<p>To collect an assignment:</p>
+<pre><code>$ sigma collect-assignment assignment-01
+Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
+Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
+</code></pre>
+<p>By default, sigma assumes that the assignment solutions are in the home directory. Sometimes, the assignments are kept in <code>assignments/</code> directory. In such a case, pass <code>--assignment-dir</code> option to tell sigma to take that into account.</p>
+<pre><code>$ sigma collect-assignment assignment-01 --assignment-dir
+Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
+Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
+</code></pre>
 
 
 
