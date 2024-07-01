@@ -57,3 +57,25 @@ Please note that the created the notebook file will have the same name as YAML f
         $ export SIGMA_PROBLEMS_ROOT=/home/anand/github/pipalacademy/python-practice-problems/python
         $ sigma create-assignment assignment-01.yml
         created assignment-01.iynb
+
+## Collecting Assignments
+
+After the deadline for an assignment, the instructor need to collect the assignment manually or through a cron job. There is no way for the students to submit their own assignments.
+
+The assignment solutions will be maintaining in the directory `training-data/assignment-submissions`.
+
+To collect an assignment:
+
+```
+$ sigma collect-assignment assignment-01
+Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
+Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
+```
+
+By default, sigma assumes that the assignment solutions are in the home directory. Sometimes, the assignments are kept in `assignments/` directory. In such a case, pass `--assignment-dir` option to tell sigma to take that into account.
+
+```
+$ sigma collect-assignment assignment-01 --assignment-dir
+Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
+Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
+```
