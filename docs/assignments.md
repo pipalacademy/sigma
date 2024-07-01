@@ -64,10 +64,12 @@ After the deadline for an assignment, the instructor need to collect the assignm
 
 The assignment solutions will be maintaining in the directory `training-data/assignment-submissions`.
 
+Since collecting an assignment involves reading files owned by the other users, it need to be run with `sudo`. We also pass `-E` flag to `sudo` to preserve the environment so that the `sigma` command can be found in the `PATH`.
+
 To collect an assignment:
 
 ```
-$ sigma collect-assignment assignment-01
+$ sudo -E sigma collect-assignment assignment-01
 Submitted /home/jupyter-alice/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
 Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
 ```
@@ -75,7 +77,7 @@ Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-subm
 By default, sigma assumes that the assignment solutions are in the home directory. Sometimes, the assignments are kept in `assignments/` directory. In such a case, pass `--assignment-dir` option to tell sigma to take that into account.
 
 ```
-$ sigma collect-assignment assignment-01 --assignment-dir assignments
+$ sudo -E sigma collect-assignment assignment-01 --assignment-dir assignments
 Submitted /home/jupyter-alice/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
 Submitted /home/jupyter-bob/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
 ```
