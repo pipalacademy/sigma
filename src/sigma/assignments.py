@@ -11,6 +11,8 @@ from dataclasses import dataclass
 from pathlib import Path
 import shutil
 import tempfile
+import sys
+import subprocess
 
 import nbformat as nbf
 from nbconvert.preprocessors import ExecutePreprocessor
@@ -111,6 +113,11 @@ class Assignment:
         for s in submissions:
             s.grade()
 
+    def grade_notebook(self, notebook_path):
+        notebook_path = Path(notebook_path)
+        grader = AssignmentGrader(assignment=self, notebook_path=notebook_path)
+        grader.grade()
+
 class Notebook:
     def __init__(self):
         self.nb = nbf.v4.new_notebook()
@@ -206,10 +213,33 @@ class AssignmentSubmission:
 
     def grade(self):
         """Grade the assignment submission.
+
+        Executes the grading process as user nobody to sandbox the execution.
         """
-        path = self.get_notebook_path()
-        grader = AssignmentGrader(self.assignment, path)
-        grader.grade()
+        notebook_path = self.get_notebook_path()
+        print(notebook_path)
+
+        with tempfile.TemporaryDirectory() as workdir:
+            workdir = Path(workdir)
+            workdir.chmod(0o777)
+
+            # copy the notebook to workdir
+            path = workdir / notebook_path.name
+            shutil.copyfile(notebook_path, path)
+
+            # invoke the grading as user nobody
+            cmd = [sys.executable, "-m", "sigma.cli", "grade-assignment-notebook", self.assignment.name, path]
+            subprocess.run(cmd, user="nobody")
+
+            def save_result(filename):
+                path = workdir / filename
+                path2 = self.submission_dir / filename
+                shutil.copy(path, path2)
+                print("cp", path, path2)
+
+            # save the results
+            save_result("graded.ipynb")
+            save_result("grades.json")
 
 class AssignmentGrader:
     def __init__(self, assignment: Assignment, notebook_path: Path):
