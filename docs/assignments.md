@@ -81,3 +81,16 @@ $ sudo -E sigma collect-assignment assignment-01 --assignment-dir assignments
 Submitted /home/jupyter-alice/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
 Submitted /home/jupyter-bob/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
 ```
+
+## Grading Assignments
+
+Grading assignments needs to be run as superuser. Sigma takes care of executing each notebook in a sandboxed environment so that each execution doesn't introduce any security issues.
+
+```
+$ sudo -E sigma grade-assignment assignment-01
+...
+Saved scores to /home/pipal/training-data/scores/assignment-01.json
+```
+
+
+

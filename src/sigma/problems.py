@@ -35,7 +35,11 @@ def reset_grades():
 def save_grades(path):
     """Saves the grades to given path as a JSON file.
     """
-    jsontext = json.dumps(VERIFY_PROBLEM_GRADES)
+    grades = {
+        "score": sum([1 for p in VERIFY_PROBLEM_GRADES if p.get("status") == "pass"]),
+        "problems": VERIFY_PROBLEM_GRADES
+    }
+    jsontext = json.dumps(grades)
     with open(path, "w") as f:
         f.write(jsontext)
     print("saved the grades to", path)

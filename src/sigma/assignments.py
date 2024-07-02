@@ -17,6 +17,7 @@ import subprocess
 import nbformat as nbf
 from nbconvert.preprocessors import ExecutePreprocessor
 import yaml
+import json
 
 from .problems import Problem
 from . import config
@@ -110,8 +111,15 @@ class Assignment:
         """Grade all the submissions of this assignment.
         """
         submissions = AssignmentSubmission.load_all(assignment=self)
+        scores = {}
         for s in submissions:
-            s.grade()
+            scores[s.username] = s.grade()
+
+        path = Path(config.training_data_dir) / "scores" / (self.name + ".json")
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+        path.write_text(json.dumps(scores))
+        print("Saved scores to", path)
 
     def grade_notebook(self, notebook_path):
         notebook_path = Path(notebook_path)
@@ -240,6 +248,10 @@ class AssignmentSubmission:
             # save the results
             save_result("graded.ipynb")
             save_result("grades.json")
+
+            path = self.submission_dir / "grades.json"
+            d = json.loads(path.read_text())
+            return d['score']
 
 class AssignmentGrader:
     def __init__(self, assignment: Assignment, notebook_path: Path):
