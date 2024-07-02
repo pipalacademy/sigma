@@ -327,6 +327,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#grading-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grading Assignments
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -383,6 +392,15 @@
   <a href="#collecting-assignments" class="md-nav__link">
     <span class="md-ellipsis">
       Collecting Assignments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grading-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grading Assignments
     </span>
   </a>
   
@@ -462,6 +480,12 @@ Submitted /home/jupyter-bob/assignment-01.ipynb to training-data/assignment-subm
 <pre><code>$ sudo -E sigma collect-assignment assignment-01 --assignment-dir assignments
 Submitted /home/jupyter-alice/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/alice/assignment-01.ipynb
 Submitted /home/jupyter-bob/assignments/assignment-01.ipynb to training-data/assignment-submissions/assignment-01/bob/assignment-01.ipynb
+</code></pre>
+<h2 id="grading-assignments">Grading Assignments</h2>
+<p>Grading assignments needs to be run as superuser. Sigma takes care of executing each notebook in a sandboxed environment so that each execution doesn't introduce any security issues.</p>
+<pre><code>$ sudo -E sigma grade-assignment assignment-01
+...
+Saved scores to /home/pipal/training-data/scores/assignment-01.json
 </code></pre>
 
 
