@@ -28,18 +28,21 @@ def create_assignment(assignment_file, output_path=None):
 @click.option("--assignment-dir",
               help="Path to the directory where assignments are available relative to the home dir of each student",
               default=".")
-@click.option("--data-dir", help="Path to the directory where the training data is stored (default: training-data)")
-def collect_assignment(assignment_name, assignment_dir, data_dir):
+def collect_assignment(assignment_name, assignment_dir):
     """Collect assignment of all students given the assignment name.
 
     Asssignment name is the name of the assignment notebook without the extension.
 
     Collected assignments will be stored at training-data/assignment-submissions/<assignment-name>/<username>/<assignment-name>.ipynb
     """
-    data_dir = data_dir or config.training_data_dir
-    solutions = AssignmentSolution.find_all(assignment_name, assignment_dir=assignment_dir)
-    for s in solutions:
-        s.submit(data_dir=data_dir)
+    assignment = Assignment.from_name(assignment_name)
+    assignment.collect(assignment_dir=assignment_dir)
+
+@app.command()
+@click.argument("assignment_name")
+def grade_assignment(assignment_name):
+    assignment = Assignment.from_name(assignment_name)
+    assignment.grade_all()
 
 if __name__ == "__main__":
     app()

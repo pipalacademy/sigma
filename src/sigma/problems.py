@@ -6,6 +6,7 @@ Jupyter Lab magic commands for trainings by Pipal Academy.
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -24,6 +25,20 @@ __version__ = "0.1.0"
 
 VERIFY_PROBLEM_GRADES = []
 
+def reset_grades():
+    """Resets global grades.
+    This is called before starting the grading for an assignment as part of the official grader.
+    """
+    global VERIFY_PROBLEM_GRADES
+    VERIFY_PROBLEM_GRADES = []
+
+def save_grades(path):
+    """Saves the grades to given path as a JSON file.
+    """
+    jsontext = json.dumps(VERIFY_PROBLEM_GRADES)
+    with open(path, "w") as f:
+        f.write(jsontext)
+    print("saved the grades to", path)
 
 def create_new_cell(contents):
     from IPython.core.getipython import get_ipython

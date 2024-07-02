@@ -1,0 +1,7 @@
+title: Assignment 01
+description: |
+  Please solve the problems below.
+problems:
+  - mean
+  - product
+  - digit-count
