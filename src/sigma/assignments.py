@@ -13,6 +13,7 @@ import shutil
 import tempfile
 import sys
 import subprocess
+import os
 
 import nbformat as nbf
 from nbconvert.preprocessors import ExecutePreprocessor
@@ -224,25 +225,31 @@ class AssignmentSubmission:
 
         Executes the grading process as user nobody to sandbox the execution.
         """
-        notebook_path = self.get_notebook_path()
-        print(notebook_path)
 
         with tempfile.TemporaryDirectory() as workdir:
             workdir = Path(workdir)
             workdir.chmod(0o777)
 
-            # copy the notebook to workdir
-            path = workdir / notebook_path.name
-            shutil.copyfile(notebook_path, path)
+            source_notebook_path = self.get_notebook_path()
+
+            # copy the assignment and notebook to workdir
+            assignment_path = workdir / self.assignment.path.name
+            notebook_path = workdir / source_notebook_path.name
+            shutil.copyfile(self.assignment.path, assignment_path)
+            shutil.copyfile(source_notebook_path, notebook_path)
 
             # invoke the grading as user nobody
-            cmd = [sys.executable, "-m", "sigma.cli", "grade-assignment-notebook", self.assignment.name, path]
-            subprocess.run(cmd, user="nobody")
+            cmd = [sys.executable, "-m", "sigma.cli", "grade-assignment-notebook", assignment_path, notebook_path]
+
+            # Setting HOME to workdir to avoid ".. not writable location" warning
+            # See https://github.com/ipython/ipython/issues/12951
+            env = dict(os.environ, HOME=workdir)
+            subprocess.run(cmd, user="nobody", env=env)
 
             def save_result(filename):
                 path = workdir / filename
                 path2 = self.submission_dir / filename
-                shutil.copy(path, path2)
+                shutil.copyfile(path, path2)
                 print("cp", path, path2)
 
             # save the results

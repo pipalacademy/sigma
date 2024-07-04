@@ -45,14 +45,14 @@ def grade_assignment(assignment_name):
     assignment.grade_all()
 
 @app.command()
-@click.argument("assignment_name")
+@click.argument("assignment_path")
 @click.argument("notebook_path")
-def grade_assignment_notebook(assignment_name, notebook_path):
+def grade_assignment_notebook(assignment_path, notebook_path):
     """Grades a single assignment notebook.
 
     This is meant for internal use only.
     """
-    assignment = Assignment.from_name(assignment_name)
+    assignment = Assignment.from_file(assignment_path)
     assignment.grade_notebook(notebook_path)
 
 if __name__ == "__main__":
